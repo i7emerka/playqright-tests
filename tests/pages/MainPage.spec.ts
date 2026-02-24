@@ -1,25 +1,19 @@
-import { test, expect, Page, Locator } from '@playwright/test';
+import { test, expect } from '../fixtures/mainPage';
 import { MainPage } from '../models/MainPage';
 
-let mainPage: MainPage;
-
 test.describe('Тесты главной страницы', () => {
-  test.beforeEach(async ({ page }) => {
-    mainPage = new MainPage(page);
-    await mainPage.openMainPage();
-  });
-  test('Проверка отображения элементов навигации хедера', async () => {
+  test('Проверка отображения элементов навигации хедера', async ({ mainPage }) => {
     await mainPage.checkElementsVisability();
   });
-  test('Проверка назване элементов навигации хедеров', async () => {
+  test('Проверка назване элементов навигации хедеров', async ({ mainPage }) => {
     await mainPage.checkElementsText();
   });
 
-  test('Проверка атрибута href элемента', async () => {
+  test('Проверка атрибута href элемента', async ({ mainPage }) => {
     await mainPage.checkElementsHrefAttribute();
   });
 
-  test('Визуальная проверка всех тем', async () => {
+  test('Визуальная проверка всех тем', async ({ mainPage }) => {
     const themes = ['light', 'dark', 'system'] as const;
     for (const theme of themes) {
       await mainPage.switchThemeTo(theme); // 1. Переключаем тему (теперь система будет светлой)
